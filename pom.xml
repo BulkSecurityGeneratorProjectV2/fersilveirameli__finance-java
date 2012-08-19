@@ -12,19 +12,25 @@
 		<maven.compiler.target>1.6</maven.compiler.target>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>org.jboss.spec</groupId>
-			<artifactId>jboss-javaee-6.0</artifactId>
-			<version>1.0.0.Final</version>
-			<type>pom</type>
-			<scope>provided</scope>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.jboss.seam.faces</groupId> -->
+<!-- 			<artifactId>seam-faces</artifactId> -->
+<!-- 			<version>3.0.2.Final</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.jboss.spec</groupId> -->
+<!-- 			<artifactId>jboss-javaee-6.0</artifactId> -->
+<!-- 			<version>1.0.0.Final</version> -->
+<!-- 			<type>pom</type> -->
+<!-- 			<scope>provided</scope> -->
+<!-- 		</dependency> -->
 		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>9.1-901.jdbc4</version>
 			<scope>provided</scope>
 		</dependency>
+
 	</dependencies>
 	<profiles>
 		<profile>
@@ -51,4 +57,18 @@
 			</build>
 		</profile>
 	</profiles>
+	<repositories>
+
+
+
+
+		<repository>
+			<id>jboss-public-repository-group</id>
+			<name>JBoss Public Maven Repository Group</name>
+			<url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+			<layout>default</layout>
+		</repository>
+
+
+	</repositories>
 </project>
