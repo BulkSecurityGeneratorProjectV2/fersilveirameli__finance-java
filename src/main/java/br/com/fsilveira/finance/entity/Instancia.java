@@ -3,8 +3,8 @@ package br.com.fsilveira.finance.entity;
 // Generated 17/08/2012 23:01:50 by Hibernate Tools 3.4.0.CR1
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Collections;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +22,7 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "instancia", uniqueConstraints = @UniqueConstraint(columnNames = "nome"))
-public class Instancia extends AbstractBean {
+public class Instancia extends AbstractEntity {
 
 	/**
 	 * 
@@ -32,24 +32,33 @@ public class Instancia extends AbstractBean {
 	@SequenceGenerator(name = "seq_instancia", sequenceName = "seq_instancia")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_instancia")
 	private Long id;
+	
 	@Column(name = "fundo_caixa", nullable = false, precision = 18)
 	private BigDecimal fundoCaixa;
+	
 	@Column(name = "nome", unique = true, nullable = false, length = 40)
 	private String nome;
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instancia")
-	private Set<Conta> contas = new HashSet<Conta>(0);
+	private List<Conta> contas = Collections.emptyList();
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instancia")
-	private Set<CedenteSacado> cedenteSacados = new HashSet<CedenteSacado>(0);
+	private List<CedenteSacado> cedenteSacados = Collections.emptyList();
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instancia")
-	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
+	private List<Usuario> usuarios = Collections.emptyList();
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instancia")
-	private Set<Feriado> feriados = new HashSet<Feriado>(0);
+	private List<Feriado> feriados = Collections.emptyList();
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instancia")
-	private Set<Categoria> categorias = new HashSet<Categoria>(0);
+	private List<Categoria> categorias = Collections.emptyList();
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instancia")
-	private Set<Lancamento> lancamentos = new HashSet<Lancamento>(0);
+	private List<Lancamento> lancamentos = Collections.emptyList();
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instancia")
-	private Set<Banco> bancos = new HashSet<Banco>(0);
+	private List<Banco> bancos = Collections.emptyList();
 	
 	public Long getId() {
 		return id;
@@ -69,46 +78,46 @@ public class Instancia extends AbstractBean {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Set<Conta> getContas() {
+	public List<Conta> getContas() {
 		return contas;
 	}
-	public void setContas(Set<Conta> contas) {
+	public void setContas(List<Conta> contas) {
 		this.contas = contas;
 	}
-	public Set<CedenteSacado> getCedenteSacados() {
+	public List<CedenteSacado> getCedenteSacados() {
 		return cedenteSacados;
 	}
-	public void setCedenteSacados(Set<CedenteSacado> cedenteSacados) {
+	public void setCedenteSacados(List<CedenteSacado> cedenteSacados) {
 		this.cedenteSacados = cedenteSacados;
 	}
-	public Set<Usuario> getUsuarios() {
+	public List<Usuario> getUsuarios() {
 		return usuarios;
 	}
-	public void setUsuarios(Set<Usuario> usuarios) {
+	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
-	public Set<Feriado> getFeriados() {
+	public List<Feriado> getFeriados() {
 		return feriados;
 	}
-	public void setFeriados(Set<Feriado> feriados) {
+	public void setFeriados(List<Feriado> feriados) {
 		this.feriados = feriados;
 	}
-	public Set<Categoria> getCategorias() {
+	public List<Categoria> getCategorias() {
 		return categorias;
 	}
-	public void setCategorias(Set<Categoria> categorias) {
+	public void setCategorias(List<Categoria> categorias) {
 		this.categorias = categorias;
 	}
-	public Set<Lancamento> getLancamentos() {
+	public List<Lancamento> getLancamentos() {
 		return lancamentos;
 	}
-	public void setLancamentos(Set<Lancamento> lancamentos) {
+	public void setLancamentos(List<Lancamento> lancamentos) {
 		this.lancamentos = lancamentos;
 	}
-	public Set<Banco> getBancos() {
+	public List<Banco> getBancos() {
 		return bancos;
 	}
-	public void setBancos(Set<Banco> bancos) {
+	public void setBancos(List<Banco> bancos) {
 		this.bancos = bancos;
 	}
 

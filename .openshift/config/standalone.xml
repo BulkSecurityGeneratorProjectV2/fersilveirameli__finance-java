@@ -61,6 +61,12 @@
                 <suffix value=".yyyy-MM-dd"/>
                 <append value="true"/>
             </periodic-rotating-file-handler>
+			 <logger category="org.jboss.weld.ClassLoading">
+                <level name="WARN"/>
+            </logger>
+            <logger category="org.jboss.logging">
+                <level name="WARN"/>
+            </logger>
             <logger category="com.arjuna">
                 <level name="WARN"/>
             </logger>
@@ -108,11 +114,11 @@
                 	</validation>
                 </datasource>
                 <datasource jndi-name="java:jboss/datasources/FinanceDS" enabled="${postgresql.enabled}" use-java-context="true" pool-name="FinanceDS" use-ccm="true">
-                    <connection-url>jdbc:postgresql://127.2.145.1:5432/finance</connection-url>
+                    <connection-url>jdbc:postgresql://${env.OPENSHIFT_DB_HOST}:${env.OPENSHIFT_DB_PORT}/${env.OPENSHIFT_APP_NAME}</connection-url>
                     <driver>postgresql</driver>
                     <security>
-                      <user-name>admin</user-name>
-                      <password>EY1McSd782Ah</password>
+                      <user-name>${env.OPENSHIFT_DB_USERNAME}</user-name>
+                      <password>${env.OPENSHIFT_DB_PASSWORD}</password>
                     </security>
                     <validation>
                       <check-valid-connection-sql>SELECT 1</check-valid-connection-sql>

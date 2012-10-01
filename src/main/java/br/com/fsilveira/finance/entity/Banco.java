@@ -22,7 +22,7 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "banco", uniqueConstraints = @UniqueConstraint(columnNames = { "codigo", "nome", "instancia" }))
-public class Banco extends AbstractBean {
+public class Banco extends AbstractEntity {
 
 	/**
 	 * 

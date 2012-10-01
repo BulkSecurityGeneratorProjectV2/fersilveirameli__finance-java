@@ -1,24 +1,24 @@
 package br.com.fsilveira.finance.business;
 
-import java.util.List;
+import javax.inject.Inject;
 
-import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-
+import br.com.fsilveira.finance.dao.AbstractDAO;
+import br.com.fsilveira.finance.dao.LancamentoDAO;
 import br.com.fsilveira.finance.entity.Lancamento;
 
-@Named
-public class LancamentoBusiness {
+@SuppressWarnings("serial")
 
-	@PersistenceContext
-	private EntityManager entityManager;
+public class LancamentoBusiness extends AbstractBusiness<Lancamento>{
+	
+	@Inject
+	private LancamentoDAO dao;
 
-	@SuppressWarnings("unchecked")
-	public List<Lancamento> list() {
-		Query query = entityManager.createQuery(" SELECT l FROM Lancamento l");
-		return query.getResultList();
+
+	@Override
+	protected AbstractDAO<Lancamento> getDao() {
+		return dao;
 	}
+
+	
 
 }

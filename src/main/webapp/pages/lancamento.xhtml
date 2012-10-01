@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:fs="http://www.fsilveira.com.br/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/template/layout.xhtml">
+
+	<ui:define name="title">
+		<h:outputText value=" - Lançamentos" />
+	</ui:define>
+
+	<ui:define name="content">
+
+		<p:growl id="messages" showDetail="true" />
+
+
+		<h:form id="formContent">
+
+
+			<div class="fm-div-months">
+				<ui:repeat var="month" value="#{utilsBean.months}">
+					<h:panelGroup layout="block" styleClass="#{(parcelaLancamentoBean.isCurrentMonth(month))?'fm-div-month-selected':'fm-div-month'} ">
+						<h:outputText value="#{month}" converter="enumConverter" />
+					</h:panelGroup>
+				</ui:repeat>
+			</div>
+			<div class="fm-div-controls">
+				<p:commandButton value="Importar Lançamentos" onclick="dlgImport.show();" type="button" />
+				<p:commandButton value="Novo Lançamento" onclick="dlg.show();" type="button" />
+			</div>
+
+
+
+
+			<p:dataTable var="parcelaLancamento" value="#{parcelaLancamentoBean.parcelaLancamentos}" id="list" editable="true" styleClass="fm-table">
+				<f:event listener="#{parcelaLancamentoBean.buildGrid()}" type="preRenderComponent" />
+
+				<p:ajax event="rowEdit" listener="#{parcelaLancamentoBean.onEdit}" update=":messages" />
+
+				<p:column styleClass="fm-td-checkbox">
+					<f:facet name="header">
+						<input type="checkbox" />
+					</f:facet>
+					<h:outputText value="" />
+				</p:column>
+
+				<p:column headerText="Descrição">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{parcelaLancamento.lancamento.descricao}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{parcelaLancamento.lancamento.descricao}" style="width:100%" label="Descrição" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column styleClass="fm-td-180" headerText="Categoria">
+					<h:outputText value="#{parcelaLancamento.lancamento.categoria.nome}" />
+				</p:column>
+
+				<p:column styleClass="fm-td-180" headerText="Cedente/Sacado">
+					<h:outputText value="#{parcelaLancamento.lancamento.cedenteSacado.nome}" />
+				</p:column>
+
+				<p:column styleClass="fm-td-140" headerText="Conta">
+
+					<h:outputText value="#{parcelaLancamento.conta.nome}" />
+
+				</p:column>
+
+				<p:column styleClass="fm-td-date" headerText="Data Venc.">
+					<h:outputText value="#{parcelaLancamento.dataVencimento}" converter="dateConverter" />
+				</p:column>
+
+				<p:column styleClass="fm-td-date" headerText="Data Pgto.">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{parcelaLancamento.dataPgto}" converter="dateConverter" />
+						</f:facet>
+						<f:facet name="input">
+							<p:calendar value="#{parcelaLancamento.dataPgto}" id="dataPgto" converter="dateConverter" pattern="dd/MM/yyyy" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column styleClass="fm-td-120" headerText="Valor R$">
+
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{parcelaLancamento.valor}" converter="doubleConverter" styleClass="#{(parcelaLancamento.lancamento.tipo eq 'RECEITA')?'income':'cost'}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{parcelaLancamento.valor}" converter="doubleConverter" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column styleClass="fm-th-acoes" headerText="Ações">
+					<p:rowEditor />
+				</p:column>
+			</p:dataTable>
+
+
+
+		</h:form>
+
+
+
+		<p:dialog id="dialogInsert" header="Novo Lançamento" widgetVar="dlg" modal="true" width="400">
+			<h:form>
+
+				<h:panelGrid columns="1">
+					<p:inputText id="descricao" value="#{lancamentoBean.bean.descricao}" required="true" label="Descrição *" />
+					<p:message for="descricao" />
+				</h:panelGrid>
+
+				<h:panelGroup layout="block">
+
+
+					<fs:selectOneMenu id="conta" label="Conta" required="true" showMessage="true" value="#{lancamentoBean.bean.conta}" converter="beanConverter">
+						<f:selectItems value="#{listUtilsBean.contas}" itemLabel="#{conta.nome}" var="conta" itemValue="#{conta}" />
+					</fs:selectOneMenu>
+
+					<fs:selectOneMenu id="cedenteSacado" label="Cedente/Sacado" required="true" showMessage="true" value="#{lancamentoBean.bean.cedenteSacado}" converter="beanConverter">
+						<f:selectItems value="#{listUtilsBean.cedenteSacados}" itemLabel="#{cedenteSacado.nome}" var="cedenteSacado" itemValue="#{cedenteSacado}" />
+					</fs:selectOneMenu>
+
+					<fs:selectOneMenu id="categoria" label="Categoria" required="true" showMessage="true" value="#{lancamentoBean.bean.categoria}" converter="beanConverter">
+						<f:selectItems value="#{listUtilsBean.categorias}" itemLabel="#{categoria.nome}" var="categoria" itemValue="#{categoria}" />
+					</fs:selectOneMenu>
+
+
+					<fs:inputText id="dataPgto" label="Pagamento" mask="99/99/9999" value="#{lancamentoBean.bean.dataPgto}" converter="dateConverter" />
+
+					<fs:inputText id="dataVencimento" label="Vencimento" mask="99/99/9999" required="true" showMessage="true" value="#{lancamentoBean.bean.dataVencimento}" converter="dateConverter" />
+
+					<fs:inputText id="valor" label="Valor" value="#{lancamentoBean.bean.valor}" required="true" showMessage="true" />
+
+					<h:outputLabel value="Histórico" for="historico" />
+					<h:inputTextarea id="historico" value="#{lancamentoBean.bean.historico}" />
+
+					<h:outputLabel value="Tipo delançaamento" for="tipo" />
+					<h:selectOneRadio id="tipo" value="#{lancamentoBean.bean.tipo}" converter="enumConverter"></h:selectOneRadio>
+
+
+
+
+					<p:commandButton id="btn" value="Salvar" update=":formContent" actionListener="#{lancamentoBean.save()}" />
+
+				</h:panelGroup>
+
+			</h:form>
+		</p:dialog>
+
+
+
+
+		<p:dialog id="dialogImport" header="Importar Lançamentos" widgetVar="dlgImport" modal="true" width="600">
+			<h:form enctype="multipart/form-data">
+
+
+				<h:panelGroup layout="block">
+
+					<p:fileUpload fileUploadListener="#{lancamentoBean.handleFileUpload}"  mode="advanced" allowTypes="/(\.|\/)(xls)$/" />
+
+				</h:panelGroup>
+
+			</h:form>
+		</p:dialog>
+
+		<p:ajaxStatus style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">
+			<f:facet name="start">
+				<p:graphicImage value="#{resource['img:load.gif']}" />
+			</f:facet>
+
+			<f:facet name="complete">
+				<h:outputText value="" />
+			</f:facet>
+		</p:ajaxStatus>
+
+
+
+	</ui:define>
+</ui:composition>
+</html>

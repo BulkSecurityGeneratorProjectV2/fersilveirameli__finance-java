@@ -2,8 +2,8 @@ package br.com.fsilveira.finance.entity;
 
 // Generated 17/08/2012 23:01:50 by Hibernate Tools 3.4.0.CR1
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Collections;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +23,7 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "categoria", uniqueConstraints = @UniqueConstraint(columnNames = { "nome", "instancia", "categoria_superior" }))
-public class Categoria extends AbstractBean {
+public class Categoria extends AbstractEntity {
 
 	/**
 	 * 
@@ -47,10 +47,10 @@ public class Categoria extends AbstractBean {
 	private String nome;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "categoria")
-	private Set<Categoria> categorias = new HashSet<Categoria>(0);
+	private List<Categoria> categorias = Collections.emptyList();
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "categoria")
-	private Set<Lancamento> lancamentos = new HashSet<Lancamento>(0);
+	private List<Lancamento> lancamentos = Collections.emptyList();
 
 	public Long getId() {
 		return id;
@@ -84,19 +84,19 @@ public class Categoria extends AbstractBean {
 		this.nome = nome;
 	}
 
-	public Set<Categoria> getCategorias() {
+	public List<Categoria> getCategorias() {
 		return categorias;
 	}
 
-	public void setCategorias(Set<Categoria> categorias) {
+	public void setCategorias(List<Categoria> categorias) {
 		this.categorias = categorias;
 	}
 
-	public Set<Lancamento> getLancamentos() {
+	public List<Lancamento> getLancamentos() {
 		return lancamentos;
 	}
 
-	public void setLancamentos(Set<Lancamento> lancamentos) {
+	public void setLancamentos(List<Lancamento> lancamentos) {
 		this.lancamentos = lancamentos;
 	}
 

@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/WEB-INF/template/layout.xhtml">
+
+	<ui:define name="title">
+		<h:outputText value=" - Home" />
+	</ui:define>
+
+	<ui:define name="content">
+
+		<div class="fm-div-content-homesets">
+			<fieldset>
+				<legend>Lançamentos Futuros</legend>
+				<h:dataTable styleClass="fm-table" value="#{homeBean.lancamentosFuturos}" var="lancamento">
+					<f:event listener="#{homeBean.buildGridFuturos()}" type="preRenderComponent" />
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Data Venc." />
+						</f:facet>
+						<h:outputText value="#{lancamento.dataVencimento}" converter="dateConverter" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Descrição" />
+						</f:facet>
+						<h:outputText value="#{lancamento.lancamento.descricao}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Categoria" />
+						</f:facet>
+						<h:outputText value="#{lancamento.lancamento.categoria.nome}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Conta" />
+						</f:facet>
+						<h:outputText value="#{lancamento.conta.nome}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Valor R$" />
+						</f:facet>
+						<h:outputText value="#{lancamento.valor}" converter="doubleConverter" styleClass="#{(lancamento.lancamento.tipo eq 'RECEITA')?'income':'cost'}" />
+					</h:column> 
+				</h:dataTable>
+			</fieldset>
+		</div>
+
+
+		<div class="fm-div-content-homesets">
+			<fieldset>
+				<legend>Lançamentos Pendentes</legend>
+
+				<h:dataTable styleClass="fm-table" value="#{homeBean.lancamentosPendentes}" var="lancamento">
+					<f:event listener="#{homeBean.buildGridPendentes()}" type="preRenderComponent" />
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Data Venc." />
+						</f:facet>
+						<h:outputText value="#{lancamento.dataVencimento}" converter="dateConverter" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Descrição" />
+						</f:facet>
+						<h:outputText value="#{lancamento.lancamento.descricao}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Categoria" />
+						</f:facet>
+						<h:outputText value="#{lancamento.lancamento.categoria.nome}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Conta" />
+						</f:facet>
+						<h:outputText value="#{lancamento.conta.nome}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Valor R$" />
+						</f:facet>
+						<h:outputText value="#{lancamento.valor}" converter="doubleConverter" styleClass="#{(lancamento.lancamento.tipo eq 'RECEITA')?'income':'cost'}" />
+					</h:column> 
+				</h:dataTable>
+			</fieldset>
+		</div>
+
+		<div class="fm-div-content-homesets">
+			<fieldset>
+				<legend>Entradas e Saidas do mes</legend>
+			</fieldset>
+		</div>
+		<div class="fm-div-content-homesets">
+			<fieldset>
+				<legend>Saldo das contas</legend>
+			</fieldset>
+		</div>
+		<div class="fm-div-content-homesets">
+			<fieldset>
+				<legend>Balanço geral</legend>
+			</fieldset>
+		</div>
+		<div class="fm-div-content-homesets">
+			<fieldset>
+				<legend>Extrato de Pagamentos e Transferências (saidas)</legend>
+			</fieldset>
+		</div>
+	</ui:define>
+
+</ui:composition>
+</html>

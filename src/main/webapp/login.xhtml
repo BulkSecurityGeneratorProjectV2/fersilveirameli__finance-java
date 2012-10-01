@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fs="http://www.fsilveira.com.br/jsf/html">
+
+<h:head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Finance Manager<ui:insert name="title" /></title>
+
+	<h:outputStylesheet library="css" name="global.css" />
+	<h:outputScript library="js" name="jquery-1.7.2.min.js" />
+</h:head>
+<h:body>
+
+
+
+	<div class="fm-div-principal">
+		<div class="fm-div-content">
+			<h:form>
+				<div class="fm-div-login">
+					<div class="fm-div-login-content">
+						<h:messages id="messages"/>
+						<div class="fm-div-form">
+							<fs:outputLabel value="Email" for="email" />
+							<div class="fm-div-form-controls">
+								<fs:inputText id="email" required="true" showMessage="true" value="#{securityBean.email}" />
+							</div>
+							<fs:outputLabel value="Senha" for="senha" />
+							<div class="fm-div-form-controls">
+								<fs:inputText id="senha" required="true" showMessage="true" value="#{securityBean.senha}" />
+							</div>
+						</div>
+						<div class="fm-div-form-buttons">
+							<h:commandButton value="Entrar" action="#{securityBean.authenticate()}">
+								
+							</h:commandButton>
+						</div>
+					</div>
+				</div>
+			</h:form>
+		</div>
+	</div>
+
+</h:body>
+</html>

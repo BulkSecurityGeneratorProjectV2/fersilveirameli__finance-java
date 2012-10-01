@@ -1,0 +1,6 @@
+@CHARSET "ISO-8859-1";
+
+@IMPORT url("#{resource['css:layout.css']}");
+@IMPORT url("#{resource['css:forms.css']}");
+@IMPORT url("#{resource['css:tables.css']}");
+@IMPORT url("#{resource['css:messages.css']}");
