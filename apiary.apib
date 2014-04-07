@@ -4,11 +4,11 @@ HOST: http://www.google.com
 # finance
 Notes API is a *short texts saving* service similar to its physical paper presence on your table.
 
-# Group Notes
-Notes related resources of the **Notes API**
+# Group Categories
+Notes related resources of the **Categories API**
 
-## Notes Collection [/notes]
-### List all Notes [GET]
+## Notes Collection [/categories]
+### Listar todas categorias [GET]
 + Response 200 (application/json)
 
         [{
@@ -17,7 +17,7 @@ Notes related resources of the **Notes API**
           "id": 2, "title": "Pick-up posters from post-office"
         }]
 
-### Create a Note [POST]
+### Cadastrar categoria [POST]
 + Request (application/json)
 
         { "title": "Buy cheese and bread for breakfast." }
@@ -26,7 +26,7 @@ Notes related resources of the **Notes API**
 
         { "id": 3, "title": "Buy cheese and bread for breakfast." }
 
-## Note [/notes/{id}]
+## Note [/categorias/{id}]
 A single Note object with all its details
 
 + Parameters
